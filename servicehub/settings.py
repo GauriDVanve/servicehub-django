@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "servicehub.local",
+    "servicehub-django.onrender.com",
 ]
 
 
