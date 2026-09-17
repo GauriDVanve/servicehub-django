@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Admin Dashboard | ServiceHub
+    </title>
+
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- =====================================================
+         INTERNAL CSS
+         ===================================================== -->
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+           ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 250px;
+            height: 100vh;
+
+            background: #0f172a;
+
+            padding: 25px 18px;
+
+            z-index: 1000;
+
+            overflow-y: auto;
+        }
+
+
+        .brand {
+            color: white;
+
+            font-size: 25px;
+            font-weight: 800;
+
+            padding: 0 12px 25px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+
+        .brand span {
+            color: #ffc107;
+        }
+
+
+        .admin-label {
+            margin: 25px 12px 10px;
+
+            color: rgba(255,255,255,0.35);
+
+            font-size: 10px;
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+
+        .sidebar-link {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 12px 14px;
+
+            margin-bottom: 6px;
+
+            color: rgba(255,255,255,0.65);
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            transition: 0.3s;
+        }
+
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: #ffc107;
+
+            color: #111827;
+        }
+
+
+        .sidebar-link i {
+            font-size: 16px;
+        }
+
+
+        /* Enquiry Badge */
+
+        .sidebar-badge {
+            margin-left: auto;
+
+            min-width: 20px;
+            height: 20px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 0 6px;
+
+            background: #dc3545;
+
+            color: white;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+
+        .sidebar-link:hover .sidebar-badge,
+        .sidebar-link.active .sidebar-badge {
+            background: #111827;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+           ===================================================== */
+
+        .main-content {
+            margin-left: 250px;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+           ===================================================== */
+
+        .topbar {
+            min-height: 70px;
+
+            padding: 15px 30px;
+
+            background: white;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 900;
+        }
+
+
+        .topbar h5 {
+            margin: 0;
+
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           ADMIN USER
+           ===================================================== */
+
+        .admin-user {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #ffc107;
+
+            color: #111827;
+
+            border-radius: 50%;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+        }
+
+
+        .admin-user strong {
+            display: block;
+
+            font-size: 13px;
+        }
+
+
+        .admin-user span {
+            display: block;
+
+            color: #6b7280;
+
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           DASHBOARD CONTENT
+           ===================================================== */
+
+        .dashboard-content {
+            padding: 35px 30px;
+        }
+
+
+        /* =====================================================
+           WELCOME BOX
+           ===================================================== */
+
+        .welcome-box {
+            padding: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #1e293b
+                );
+
+            color: white;
+
+            border-radius: 18px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .welcome-box h2 {
+            font-weight: 800;
+
+            margin-bottom: 8px;
+        }
+
+
+        .welcome-box h2 span {
+            color: #ffc107;
+        }
+
+
+        .welcome-box p {
+            margin: 0;
+
+            color: rgba(255,255,255,0.60);
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           STATISTICS
+           ===================================================== */
+
+        .stat-link {
+            display: block;
+
+            height: 100%;
+
+            color: inherit;
+        }
+
+
+        .stat-card {
+            height: 100%;
+
+            padding: 24px;
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 15px;
+
+            transition: 0.3s;
+        }
+
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+
+            border-color:
+                rgba(255,193,7,0.70);
+
+            box-shadow:
+                0 12px 30px
+                rgba(15,23,42,0.08);
+        }
+
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #fff5c7;
+
+            color: #a97d00;
+
+            border-radius: 12px;
+
+            font-size: 20px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .stat-card h3 {
+            margin: 0;
+
+            color: #111827;
+
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+
+        .stat-card p {
+            margin: 5px 0 0;
+
+            color: #6b7280;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           SECTION
+           ===================================================== */
+
+        .section-title {
+            margin-top: 35px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .section-title h4 {
+            font-size: 19px;
+
+            font-weight: 800;
+
+            margin-bottom: 4px;
+        }
+
+
+        .section-title p {
+            color: #6b7280;
+
+            font-size: 12px;
+
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           MANAGEMENT CARDS
+           ===================================================== */
+
+        .manage-card {
+            height: 100%;
+
+            padding: 25px;
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 15px;
+
+            transition: 0.3s;
+        }
+
+
+        .manage-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(15,23,42,0.07);
+        }
+
+
+        .manage-icon {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #0f172a;
+
+            color: #ffc107;
+
+            border-radius: 12px;
+
+            font-size: 20px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .manage-card h5 {
+            font-size: 15px;
+
+            font-weight: 800;
+        }
+
+
+        .manage-card p {
+            color: #6b7280;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            min-height: 38px;
+        }
+
+
+        .manage-btn {
+            color: #9a7300;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        .manage-btn:hover {
+            color: #6f5300;
+        }
+
+
+        /* =====================================================
+           ENQUIRY CARD
+           ===================================================== */
+
+        .enquiry-info {
+            display: flex;
+
+            gap: 8px;
+
+            margin-bottom: 13px;
+        }
+
+
+        .enquiry-status {
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           MESSAGES
+           ===================================================== */
+
+        .custom-alert {
+            border: none;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        .mobile-menu {
+            display: none;
+
+            border: none;
+
+            background: #0f172a;
+
+            color: white;
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 8px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media(max-width: 991px) {
+
+            .sidebar {
+                left: -250px;
+
+                transition: 0.3s;
+            }
+
+
+            .sidebar.show {
+                left: 0;
+            }
+
+
+            .main-content {
+                margin-left: 0;
+            }
+
+
+            .mobile-menu {
+                display: inline-block;
+            }
+
+        }
+
+
+        @media(max-width: 576px) {
+
+            .topbar {
+                padding: 15px;
+            }
+
+
+            .dashboard-content {
+                padding: 25px 15px;
+            }
+
+
+            .welcome-box {
+                padding: 25px 20px;
+            }
+
+
+            .admin-user div:last-child {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR
+     ========================================================= -->
+
+<div
+    class="sidebar"
+    id="sidebar"
+>
+
+    <div class="brand">
+
+        Service<span>Hub</span>
+
+    </div>
+
+
+    <div class="admin-label">
+        ADMIN PANEL
+    </div>
+
+
+    <!-- Dashboard -->
+
+    <a
+        href="{% url 'admin_dashboard' %}"
+        class="sidebar-link active"
+    >
+
+        <i class="bi bi-grid"></i>
+
+        Dashboard
+
+    </a>
+
+
+    <!-- Categories -->
+
+    <a
+        href="{% url 'category_list' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-tags"></i>
+
+        Categories
+
+    </a>
+
+
+    <!-- Services -->
+
+    <a
+        href="{% url 'service_list' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-briefcase"></i>
+
+        Services
+
+    </a>
+
+
+    <!-- Users -->
+
+    <a
+        href="{% url 'admin_user_list' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-people"></i>
+
+        Users
+
+    </a>
+
+
+    <!--
+        Admin Booking Management will be connected
+        in our later Admin Booking module.
+    -->
+
+    <a
+        href="#"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-calendar-check"></i>
+
+        Bookings
+
+    </a>
+
+
+    <!--
+        Admin Review Management will be connected
+        separately if required.
+    -->
+
+    <a
+        href="#"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-star"></i>
+
+        Reviews
+
+    </a>
+
+
+    <!-- Contact Enquiries -->
+
+    <a
+        href="{% url 'admin_enquiry_list' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-envelope"></i>
+
+        Enquiries
+
+
+        {% if pending_enquiries > 0 %}
+
+            <span class="sidebar-badge">
+
+                {{ pending_enquiries }}
+
+            </span>
+
+        {% endif %}
+
+    </a>
+
+
+    <div class="admin-label">
+        ACCOUNT
+    </div>
+
+
+    <!-- Website -->
+
+    <a
+        href="{% url 'home' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-globe"></i>
+
+        View Website
+
+    </a>
+
+
+    <!-- Logout -->
+
+    <a
+        href="{% url 'logout' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-box-arrow-right"></i>
+
+        Logout
+
+    </a>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+     ========================================================= -->
+
+<div class="main-content">
+
+
+    <!-- =====================================================
+         TOPBAR
+         ===================================================== -->
+
+    <div class="topbar">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <button
+                class="mobile-menu"
+                onclick="toggleSidebar()"
+            >
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+
+            <h5>
+                Admin Dashboard
+            </h5>
+
+        </div>
+
+
+        <div class="admin-user">
+
+            <div class="admin-avatar">
+
+                {{ user.username|first }}
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    {{ user.username }}
+                </strong>
+
+                <span>
+                    Administrator
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         DASHBOARD CONTENT
+         ===================================================== -->
+
+    <div class="dashboard-content">
+
+
+        <!-- Messages -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div
+                    class="
+                        alert
+
+                        {% if message.tags == 'error' %}
+                            alert-danger
+                        {% else %}
+                            alert-{{ message.tags|default:'success' }}
+                        {% endif %}
+
+                        custom-alert
+                    "
+                >
+
+                    <i class="bi bi-info-circle-fill me-2"></i>
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <!-- =================================================
+             WELCOME
+             ================================================= -->
+
+        <div class="welcome-box">
+
+            <h2>
+
+                Welcome,
+
+                <span>
+                    {{ user.username }}!
+                </span>
+
+            </h2>
+
+
+            <p>
+
+                Manage users, categories, services,
+                bookings, reviews and customer enquiries
+                from your ServiceHub admin dashboard.
+
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             STATISTICS
+             ================================================= -->
+
+        <div class="row g-4">
+
+
+            <!-- Users -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <a
+                    href="{% url 'admin_user_list' %}"
+                    class="stat-link"
+                >
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-people"></i>
+
+                        </div>
+
+                        <h3>
+                            {{ total_users|default:"0" }}
+                        </h3>
+
+                        <p>
+                            Total Users
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Categories -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <a
+                    href="{% url 'category_list' %}"
+                    class="stat-link"
+                >
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-tags"></i>
+
+                        </div>
+
+                        <h3>
+                            {{ total_categories|default:"0" }}
+                        </h3>
+
+                        <p>
+                            Total Categories
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Services -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <a
+                    href="{% url 'service_list' %}"
+                    class="stat-link"
+                >
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-briefcase"></i>
+
+                        </div>
+
+                        <h3>
+                            {{ total_services|default:"0" }}
+                        </h3>
+
+                        <p>
+                            Total Services
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Bookings -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-calendar-check"></i>
+
+                    </div>
+
+                    <h3>
+                        {{ total_bookings|default:"0" }}
+                    </h3>
+
+                    <p>
+                        Total Bookings
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Reviews -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-star"></i>
+
+                    </div>
+
+                    <h3>
+                        {{ total_reviews|default:"0" }}
+                    </h3>
+
+                    <p>
+                        Total Reviews
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Enquiries -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <a
+                    href="{% url 'admin_enquiry_list' %}"
+                    class="stat-link"
+                >
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-envelope"></i>
+
+                        </div>
+
+                        <h3>
+                            {{ total_enquiries|default:"0" }}
+                        </h3>
+
+                        <p>
+                            Total Enquiries
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Pending Enquiries -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <a
+                    href="{% url 'admin_enquiry_list' %}"
+                    class="stat-link"
+                >
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-envelope-exclamation"></i>
+
+                        </div>
+
+                        <h3>
+                            {{ pending_enquiries|default:"0" }}
+                        </h3>
+
+                        <p>
+                            Pending Enquiries
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Platform -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <a
+                    href="{% url 'home' %}"
+                    class="stat-link"
+                >
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-globe"></i>
+
+                        </div>
+
+                        <h3>
+                            Live
+                        </h3>
+
+                        <p>
+                            ServiceHub Website
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             MANAGEMENT
+             ================================================= -->
+
+        <div class="section-title">
+
+            <h4>
+                Manage ServiceHub
+            </h4>
+
+            <p>
+
+                Manage the main sections of your
+                ServiceHub platform.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- Categories -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="manage-card">
+
+                    <div class="manage-icon">
+
+                        <i class="bi bi-tags"></i>
+
+                    </div>
+
+
+                    <h5>
+                        Manage Categories
+                    </h5>
+
+
+                    <p>
+
+                        Add, update and delete
+                        service categories.
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'category_list' %}"
+                        class="manage-btn"
+                    >
+
+                        Manage Categories
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Services -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="manage-card">
+
+                    <div class="manage-icon">
+
+                        <i class="bi bi-briefcase"></i>
+
+                    </div>
+
+
+                    <h5>
+                        Manage Services
+                    </h5>
+
+
+                    <p>
+
+                        View, add, update and manage
+                        ServiceHub services.
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'service_list' %}"
+                        class="manage-btn"
+                    >
+
+                        Manage Services
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Users -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="manage-card">
+
+                    <div class="manage-icon">
+
+                        <i class="bi bi-people"></i>
+
+                    </div>
+
+
+                    <h5>
+                        Manage Users
+                    </h5>
+
+
+                    <p>
+
+                        View customers, providers
+                        and manage account status.
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'admin_user_list' %}"
+                        class="manage-btn"
+                    >
+
+                        Manage Users
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Bookings -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="manage-card">
+
+                    <div class="manage-icon">
+
+                        <i class="bi bi-calendar-check"></i>
+
+                    </div>
+
+
+                    <h5>
+                        Manage Bookings
+                    </h5>
+
+
+                    <p>
+
+                        View and manage customer
+                        service bookings.
+
+                    </p>
+
+
+                    <!--
+                        We will connect this URL in the
+                        Admin Booking Management module.
+                    -->
+
+                    <a
+                        href="#"
+                        class="manage-btn"
+                    >
+
+                        Manage Bookings
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Reviews -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="manage-card">
+
+                    <div class="manage-icon">
+
+                        <i class="bi bi-star"></i>
+
+                    </div>
+
+
+                    <h5>
+                        Manage Reviews
+                    </h5>
+
+
+                    <p>
+
+                        View customer ratings and
+                        service reviews.
+
+                    </p>
+
+
+                    <a
+                        href="#"
+                        class="manage-btn"
+                    >
+
+                        Manage Reviews
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Enquiries -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="manage-card">
+
+                    <div class="manage-icon">
+
+                        <i class="bi bi-envelope-paper"></i>
+
+                    </div>
+
+
+                    <h5>
+                        Contact Enquiries
+                    </h5>
+
+
+                    <p>
+
+                        View customer enquiries,
+                        resolve requests and manage
+                        support messages.
+
+                    </p>
+
+
+                    {% if pending_enquiries > 0 %}
+
+                        <div class="enquiry-info">
+
+                            <span class="enquiry-status">
+
+                                {{ pending_enquiries }}
+                                Pending
+
+                            </span>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <a
+                        href="{% url 'admin_enquiry_list' %}"
+                        class="manage-btn"
+                    >
+
+                        Manage Enquiries
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Website -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="manage-card">
+
+                    <div class="manage-icon">
+
+                        <i class="bi bi-globe"></i>
+
+                    </div>
+
+
+                    <h5>
+                        View Website
+                    </h5>
+
+
+                    <p>
+
+                        Open the public
+                        ServiceHub website.
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'home' %}"
+                        class="manage-btn"
+                    >
+
+                        Visit Website
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+     ========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<!-- =========================================================
+     INTERNAL JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+    function toggleSidebar() {
+
+        document
+            .getElementById("sidebar")
+            .classList
+            .toggle("show");
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

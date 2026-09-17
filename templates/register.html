@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Register | ServiceHub</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- Internal CSS -->
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f6f8;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .custom-navbar {
+            background-color: #0f172a;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .navbar-brand {
+            color: #ffffff;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .navbar-brand:hover {
+            color: #ffffff;
+        }
+
+        .navbar-brand span {
+            color: #ffc107;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-right: 8px;
+
+            background-color: #ffc107;
+            color: #111827;
+
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        .home-link {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .home-link:hover {
+            color: #ffc107;
+        }
+
+
+        /* ================= REGISTER SECTION ================= */
+
+        .register-section {
+            position: relative;
+
+            min-height: calc(100vh - 68px);
+
+            display: flex;
+            align-items: center;
+
+            padding: 60px 0;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4f6f8 0%,
+                    #ffffff 50%,
+                    #fff9e6 100%
+                );
+        }
+
+        .register-section::before {
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            top: -150px;
+            right: -120px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 193, 7, 0.10);
+        }
+
+        .register-section::after {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            left: -150px;
+            bottom: -150px;
+
+            border-radius: 50%;
+
+            background: rgba(15, 23, 42, 0.04);
+        }
+
+        .register-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* ================= WRAPPER ================= */
+
+        .register-wrapper {
+            max-width: 1050px;
+            margin: auto;
+
+            overflow: hidden;
+
+            background-color: #ffffff;
+
+            border: 1px solid #e7eaf0;
+            border-radius: 25px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(15, 23, 42, 0.12);
+        }
+
+
+        /* ================= LEFT SIDE ================= */
+
+        .register-info {
+            position: relative;
+
+            height: 100%;
+            min-height: 720px;
+
+            padding: 55px 45px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #0f172a,
+                    #1e293b
+                );
+
+            color: #ffffff;
+        }
+
+        .register-info::before {
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            top: -120px;
+            right: -120px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 193, 7, 0.09);
+        }
+
+        .register-info::after {
+            content: "";
+
+            position: absolute;
+
+            width: 190px;
+            height: 190px;
+
+            bottom: -100px;
+            left: -80px;
+
+            border-radius: 50%;
+
+            border: 35px solid rgba(255, 193, 7, 0.05);
+        }
+
+        .info-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 8px 14px;
+
+            background: rgba(255, 193, 7, 0.12);
+
+            border: 1px solid rgba(255, 193, 7, 0.25);
+            border-radius: 50px;
+
+            color: #ffc107;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .register-info h1 {
+            max-width: 400px;
+
+            margin-top: 25px;
+
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.18;
+        }
+
+        .register-info h1 span {
+            color: #ffc107;
+        }
+
+        .register-info > .info-content > p {
+            max-width: 430px;
+
+            margin-top: 20px;
+
+            color: rgba(255, 255, 255, 0.67);
+
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+
+        /* ================= FEATURES ================= */
+
+        .feature-list {
+            margin-top: 35px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            margin-bottom: 20px;
+        }
+
+        .feature-icon {
+            min-width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(255, 193, 7, 0.11);
+
+            border: 1px solid rgba(255, 193, 7, 0.15);
+            border-radius: 12px;
+
+            color: #ffc107;
+
+            font-size: 18px;
+        }
+
+        .feature-text h6 {
+            margin-bottom: 3px;
+
+            color: #ffffff;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .feature-text p {
+            margin-bottom: 0;
+
+            color: rgba(255, 255, 255, 0.55);
+
+            font-size: 12px;
+        }
+
+
+        /* ================= TRUST BOX ================= */
+
+        .trust-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-top: 35px;
+            padding: 16px;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 13px;
+        }
+
+        .trust-box i {
+            color: #ffc107;
+            font-size: 24px;
+        }
+
+        .trust-box strong {
+            display: block;
+
+            color: #ffffff;
+
+            font-size: 13px;
+        }
+
+        .trust-box span {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 11px;
+        }
+
+
+        /* ================= FORM SIDE ================= */
+
+        .form-side {
+            height: 100%;
+            padding: 50px;
+        }
+
+        .register-icon {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 20px;
+
+            background-color: #fff5c7;
+            color: #c99400;
+
+            border-radius: 14px;
+
+            font-size: 23px;
+        }
+
+        .form-heading h2 {
+            margin-bottom: 8px;
+
+            color: #111827;
+
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .form-heading p {
+            margin-bottom: 0;
+
+            color: #6b7280;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        /* ================= FORM ================= */
+
+        .registration-form {
+            margin-top: 30px;
+        }
+
+        .form-label {
+            margin-bottom: 7px;
+
+            color: #374151;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            top: 50%;
+            left: 15px;
+
+            transform: translateY(-50%);
+
+            color: #8a94a3;
+
+            font-size: 16px;
+
+            z-index: 2;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 50px;
+
+            border: 1px solid #d9dee7;
+            border-radius: 10px;
+
+            background-color: #ffffff;
+
+            color: #111827;
+
+            font-size: 14px;
+
+            transition:
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .form-control {
+            padding-left: 43px;
+        }
+
+        .form-select {
+            padding-left: 43px;
+        }
+
+        .form-control::placeholder {
+            color: #a1a8b3;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #ffc107;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(255, 193, 7, 0.14);
+        }
+
+        .password-wrapper .form-control {
+            padding-right: 48px;
+        }
+
+
+        /* ================= ROLE ================= */
+
+        .role-wrapper {
+            position: relative;
+        }
+
+        .role-wrapper .form-select {
+            cursor: pointer;
+        }
+
+        .role-help {
+            margin-top: 7px;
+
+            color: #8a94a3;
+
+            font-size: 11px;
+        }
+
+
+        /* ================= PASSWORD ================= */
+
+        .password-toggle {
+            position: absolute;
+
+            top: 50%;
+            right: 14px;
+
+            transform: translateY(-50%);
+
+            padding: 4px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #7b8492;
+
+            cursor: pointer;
+
+            z-index: 3;
+        }
+
+        .password-toggle:hover {
+            color: #111827;
+        }
+
+        .password-help {
+            margin-top: 7px;
+
+            color: #8a94a3;
+
+            font-size: 11px;
+        }
+
+        #passwordMatch {
+            margin-top: 6px;
+            font-size: 12px;
+        }
+
+
+        /* ================= ERRORS ================= */
+
+        .error-message {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            margin-top: 6px;
+
+            color: #dc3545;
+
+            font-size: 12px;
+        }
+
+        .input-error {
+            border-color: #dc3545 !important;
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        .register-btn {
+            min-height: 51px;
+
+            margin-top: 10px;
+
+            border: none;
+            border-radius: 10px;
+
+            background-color: #ffc107;
+
+            color: #111827;
+
+            font-size: 15px;
+            font-weight: 800;
+
+            transition: 0.3s;
+        }
+
+        .register-btn:hover {
+            background-color: #eeb400;
+
+            color: #111827;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(255, 193, 7, 0.25);
+        }
+
+
+        /* ================= DIVIDER ================= */
+
+        .form-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin: 24px 0;
+
+            color: #9ca3af;
+
+            font-size: 11px;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background-color: #e5e7eb;
+        }
+
+
+        /* ================= LOGIN ================= */
+
+        .login-text {
+            text-align: center;
+
+            color: #6b7280;
+
+            font-size: 13px;
+        }
+
+        .login-text a {
+            color: #b48600;
+            font-weight: 700;
+        }
+
+        .login-text a:hover {
+            color: #8f6b00;
+        }
+
+        .security-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+
+            margin-top: 22px;
+
+            color: #9ca3af;
+
+            font-size: 11px;
+        }
+
+        .security-text i {
+            color: #16a34a;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        .footer-section {
+            padding: 22px 0;
+
+            background-color: #090f1c;
+
+            color: rgba(255, 255, 255, 0.50);
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 991px) {
+
+            .register-info {
+                min-height: auto;
+                padding: 45px 35px;
+            }
+
+            .register-info h1 {
+                font-size: 36px;
+            }
+
+            .form-side {
+                padding: 45px 35px;
+            }
+
+        }
+
+        @media (max-width: 576px) {
+
+            .register-section {
+                padding: 30px 12px;
+            }
+
+            .register-wrapper {
+                border-radius: 18px;
+            }
+
+            .register-info {
+                padding: 35px 25px;
+            }
+
+            .register-info h1 {
+                font-size: 31px;
+            }
+
+            .form-side {
+                padding: 35px 22px;
+            }
+
+            .form-heading h2 {
+                font-size: 27px;
+            }
+
+            .feature-item {
+                align-items: flex-start;
+            }
+
+            .home-link span {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-dark custom-navbar">
+
+    <div class="container">
+
+        <a href="{% url 'home' %}" class="navbar-brand">
+
+            <span class="brand-icon">
+                <i class="bi bi-grid-fill"></i>
+            </span>
+
+            Service<span>Hub</span>
+
+        </a>
+
+
+        <a href="{% url 'home' %}" class="home-link">
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            <span>Back to Home</span>
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ================= REGISTRATION ================= -->
+
+<section class="register-section">
+
+    <div class="container">
+
+        <div class="register-wrapper">
+
+            <div class="row g-0">
+
+
+                <!-- LEFT SIDE -->
+                <div class="col-lg-5">
+
+                    <div class="register-info">
+
+                        <div class="info-content">
+
+                            <div class="info-badge">
+
+                                <i class="bi bi-stars"></i>
+
+                                JOIN SERVICEHUB
+
+                            </div>
+
+
+                            <h1>
+
+                                Find Services.
+
+                                <span>
+                                    Grow Your Business.
+                                </span>
+
+                            </h1>
+
+
+                            <p>
+
+                                Join ServiceHub as a customer to find
+                                trusted professionals or register as a
+                                service provider to offer your services.
+
+                            </p>
+
+
+                            <div class="feature-list">
+
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+                                        <i class="bi bi-search"></i>
+                                    </div>
+
+                                    <div class="feature-text">
+
+                                        <h6>Find Services</h6>
+
+                                        <p>
+                                            Discover services from trusted providers.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+                                        <i class="bi bi-briefcase"></i>
+                                    </div>
+
+                                    <div class="feature-text">
+
+                                        <h6>Offer Your Services</h6>
+
+                                        <p>
+                                            Register as a provider and grow your business.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+                                        <i class="bi bi-calendar-check"></i>
+                                    </div>
+
+                                    <div class="feature-text">
+
+                                        <h6>Easy Booking</h6>
+
+                                        <p>
+                                            Manage service bookings easily.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="feature-item">
+
+                                    <div class="feature-icon">
+                                        <i class="bi bi-star"></i>
+                                    </div>
+
+                                    <div class="feature-text">
+
+                                        <h6>Ratings & Reviews</h6>
+
+                                        <p>
+                                            Build trust through customer feedback.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="trust-box">
+
+                                <i class="bi bi-shield-check"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Secure Registration
+                                    </strong>
+
+                                    <span>
+                                        Your password is securely handled by Django.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RIGHT SIDE -->
+                <div class="col-lg-7">
+
+                    <div class="form-side">
+
+
+                        <div class="register-icon">
+                            <i class="bi bi-person-plus"></i>
+                        </div>
+
+
+                        <div class="form-heading">
+
+                            <h2>Create Your Account</h2>
+
+                            <p>
+                                Choose your role and enter your details
+                                to join ServiceHub.
+                            </p>
+
+                        </div>
+
+
+
+                        <!-- Registration Form -->
+                        <form
+                            method="POST"
+                            class="registration-form"
+                            id="registrationForm"
+                        >
+
+                            {% csrf_token %}
+
+
+                            <!-- USERNAME -->
+                            <div class="mb-3">
+
+                                <label
+                                    for="{{ form.username.id_for_label }}"
+                                    class="form-label"
+                                >
+
+                                    Username
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+
+                                <div class="input-wrapper">
+
+                                    <i class="bi bi-person input-icon"></i>
+
+                                    {{ form.username }}
+
+                                </div>
+
+
+                                {% for error in form.username.errors %}
+
+                                    <div class="error-message">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+
+
+                            <!-- EMAIL -->
+                            <div class="mb-3">
+
+                                <label
+                                    for="{{ form.email.id_for_label }}"
+                                    class="form-label"
+                                >
+
+                                    Email Address
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+
+                                <div class="input-wrapper">
+
+                                    <i class="bi bi-envelope input-icon"></i>
+
+                                    {{ form.email }}
+
+                                </div>
+
+
+                                {% for error in form.email.errors %}
+
+                                    <div class="error-message">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+
+
+                            <!-- ROLE -->
+                            <div class="mb-3">
+
+                                <label
+                                    for="{{ form.role.id_for_label }}"
+                                    class="form-label"
+                                >
+
+                                    Register As
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+
+                                <div class="role-wrapper">
+
+                                    <i class="bi bi-people input-icon"></i>
+
+                                    {{ form.role }}
+
+                                </div>
+
+
+                                <div class="role-help">
+
+                                    <i class="bi bi-info-circle me-1"></i>
+
+                                    Choose Customer to book services or
+                                    Service Provider to offer services.
+
+                                </div>
+
+
+                                {% for error in form.role.errors %}
+
+                                    <div class="error-message">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+
+
+                            <!-- PASSWORD -->
+                            <div class="mb-3">
+
+                                <label
+                                    for="{{ form.password1.id_for_label }}"
+                                    class="form-label"
+                                >
+
+                                    Password
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+
+                                <div class="input-wrapper password-wrapper">
+
+                                    <i class="bi bi-lock input-icon"></i>
+
+                                    {{ form.password1 }}
+
+
+                                    <button
+                                        type="button"
+                                        class="password-toggle"
+                                        onclick="togglePassword('id_password1', this)"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </button>
+
+                                </div>
+
+
+                                <div class="password-help">
+
+                                    <i class="bi bi-info-circle"></i>
+
+                                    Use a strong password that is difficult to guess.
+
+                                </div>
+
+
+                                {% for error in form.password1.errors %}
+
+                                    <div class="error-message">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+
+
+                            <!-- CONFIRM PASSWORD -->
+                            <div class="mb-3">
+
+                                <label
+                                    for="{{ form.password2.id_for_label }}"
+                                    class="form-label"
+                                >
+
+                                    Confirm Password
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+
+                                <div class="input-wrapper password-wrapper">
+
+                                    <i class="bi bi-shield-lock input-icon"></i>
+
+                                    {{ form.password2 }}
+
+
+                                    <button
+                                        type="button"
+                                        class="password-toggle"
+                                        onclick="togglePassword('id_password2', this)"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </button>
+
+                                </div>
+
+
+                                <div id="passwordMatch"></div>
+
+
+                                {% for error in form.password2.errors %}
+
+                                    <div class="error-message">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+
+
+                            <!-- NON FIELD ERRORS -->
+                            {% for error in form.non_field_errors %}
+
+                                <div class="error-message mb-3">
+
+                                    <i class="bi bi-exclamation-circle"></i>
+
+                                    {{ error }}
+
+                                </div>
+
+                            {% endfor %}
+
+
+
+                            <!-- REGISTER -->
+                            <button
+                                type="submit"
+                                class="btn register-btn w-100"
+                            >
+
+                                <i class="bi bi-person-plus me-2"></i>
+
+                                Create Account
+
+                                <i class="bi bi-arrow-right ms-2"></i>
+
+                            </button>
+
+
+                            <div class="form-divider">
+                                SERVICEHUB
+                            </div>
+
+
+                            <!-- LOGIN -->
+                            <div class="login-text">
+
+                                Already have an account?
+
+                                <a href="{% url 'login' %}">
+                                    Login Here
+                                </a>
+
+                            </div>
+
+
+                            <div class="security-text">
+
+                                <i class="bi bi-shield-check"></i>
+
+                                Your account information is securely processed.
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer-section">
+
+    <div class="container">
+
+        &copy; 2026 ServiceHub.
+        All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+
+<!-- Bootstrap JS -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<!-- Internal JavaScript -->
+<script>
+
+
+    // Show / Hide Password
+    function togglePassword(fieldId, button) {
+
+        const passwordField =
+            document.getElementById(fieldId);
+
+        const icon =
+            button.querySelector("i");
+
+
+        if (passwordField.type === "password") {
+
+            passwordField.type = "text";
+
+            icon.classList.remove("bi-eye");
+            icon.classList.add("bi-eye-slash");
+
+        }
+
+        else {
+
+            passwordField.type = "password";
+
+            icon.classList.remove("bi-eye-slash");
+            icon.classList.add("bi-eye");
+
+        }
+
+    }
+
+
+
+    // Password Match
+    const password1 =
+        document.getElementById("id_password1");
+
+    const password2 =
+        document.getElementById("id_password2");
+
+    const passwordMatch =
+        document.getElementById("passwordMatch");
+
+
+    function checkPasswordMatch() {
+
+        if (password2.value === "") {
+
+            passwordMatch.innerHTML = "";
+
+            return;
+
+        }
+
+
+        if (password1.value === password2.value) {
+
+            passwordMatch.innerHTML =
+                '<span class="text-success">' +
+                '<i class="bi bi-check-circle-fill me-1"></i>' +
+                'Passwords match' +
+                '</span>';
+
+        }
+
+        else {
+
+            passwordMatch.innerHTML =
+                '<span class="text-danger">' +
+                '<i class="bi bi-x-circle-fill me-1"></i>' +
+                'Passwords do not match' +
+                '</span>';
+
+        }
+
+    }
+
+
+    password1.addEventListener(
+        "input",
+        checkPasswordMatch
+    );
+
+
+    password2.addEventListener(
+        "input",
+        checkPasswordMatch
+    );
+
+
+    console.log(
+        "ServiceHub registration page loaded successfully."
+    );
+
+
+</script>
+
+
+</body>
+
+</html>

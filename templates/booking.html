@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Service | ServiceHub</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Internal CSS -->
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 15px 0;
+            background: #0f172a;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .navbar-brand span {
+            color: #ffc107;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.70) !important;
+            font-size: 13px;
+        }
+
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        /* Main */
+        .booking-section {
+            padding: 60px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .back-link:hover {
+            color: #111827;
+        }
+
+        /* Form */
+        .booking-form {
+            padding: 35px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+        }
+
+        .booking-form h2 {
+            margin-bottom: 6px;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            margin-bottom: 30px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .form-label {
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        .form-control {
+            padding: 11px 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .form-control:focus {
+            border-color: #ffc107;
+            box-shadow: 0 0 0 3px rgba(255,193,7,0.12);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #ffc107;
+            color: #111827;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .submit-btn:hover {
+            background: #e5ad00;
+        }
+
+        /* Service Summary */
+        .summary-card {
+            padding: 30px;
+            background: #0f172a;
+            color: white;
+            border-radius: 18px;
+        }
+
+        .summary-label {
+            color: rgba(255,255,255,0.45);
+            font-size: 9px;
+            text-transform: uppercase;
+        }
+
+        .category {
+            display: inline-block;
+            padding: 5px 9px;
+            margin-bottom: 15px;
+            background: rgba(255,193,7,0.15);
+            color: #ffc107;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .summary-card h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .provider-name {
+            display: block;
+            margin-top: 4px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .price {
+            display: block;
+            margin-top: 4px;
+            color: #ffc107;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .booking-note {
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.10);
+            color: rgba(255,255,255,0.55);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .booking-note i {
+            color: #ffc107;
+        }
+
+        /* Alert */
+        .custom-alert {
+            border: none;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 25px 0;
+            background: #0f172a;
+            color: rgba(255,255,255,0.50);
+            text-align: center;
+            font-size: 11px;
+        }
+
+        @media(max-width: 768px) {
+
+            .booking-section {
+                padding: 35px 0;
+            }
+
+            .booking-form,
+            .summary-card {
+                padding: 25px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+    <div class="container">
+
+        <a href="{% url 'home' %}" class="navbar-brand">
+            Service<span>Hub</span>
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="nav-link">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'public_service_list' %}" class="nav-link">
+                        Services
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'customer_dashboard' %}" class="nav-link">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link">
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- Booking -->
+<section class="booking-section">
+
+    <div class="container">
+
+        <a href="{% url 'public_service_detail' service.id %}" class="back-link">
+            <i class="bi bi-arrow-left me-1"></i>
+            Back to Service
+        </a>
+
+
+        <!-- Messages -->
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert
+                    {% if message.tags == 'error' %}
+                        alert-danger
+                    {% else %}
+                        alert-success
+                    {% endif %}
+                    custom-alert">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <div class="row g-4">
+
+
+            <!-- Booking Form -->
+            <div class="col-lg-7">
+
+                <div class="booking-form">
+
+                    <h2>Book This Service</h2>
+
+                    <p class="subtitle">
+                        Select your preferred date and time and send a booking request.
+                    </p>
+
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+
+                        <div class="row g-3">
+
+
+                            <!-- Date -->
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Booking Date
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="date"
+                                    name="booking_date"
+                                    class="form-control"
+                                    min="{{ today|date:'Y-m-d' }}"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- Time -->
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Preferred Time
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="time"
+                                    name="booking_time"
+                                    class="form-control"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- Message -->
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    Message to Provider
+                                </label>
+
+                                <textarea
+                                    name="message"
+                                    class="form-control"
+                                    placeholder="Describe your requirement or add any special instructions..."
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <button type="submit" class="submit-btn">
+
+                                    <i class="bi bi-calendar-check me-1"></i>
+
+                                    Send Booking Request
+
+                                </button>
+
+                            </div>
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- Service Summary -->
+            <div class="col-lg-5">
+
+                <div class="summary-card">
+
+                    <span class="category">
+                        {{ service.category.name }}
+                    </span>
+
+                    <h3>
+                        {{ service.name }}
+                    </h3>
+
+
+                    <span class="summary-label">
+                        Service Provider
+                    </span>
+
+                    <span class="provider-name">
+
+                        {% if service.provider.business_name %}
+
+                            {{ service.provider.business_name }}
+
+                        {% else %}
+
+                            {{ service.provider.user.username }}
+
+                        {% endif %}
+
+                    </span>
+
+
+                    <span class="summary-label">
+                        Service Price
+                    </span>
+
+                    <span class="price">
+                        ₹{{ service.price }}
+                    </span>
+
+
+                    <div class="booking-note">
+
+                        <i class="bi bi-info-circle me-1"></i>
+
+                        Your booking will initially be marked as
+                        <strong>Pending</strong>. The provider can
+                        confirm or cancel the request.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="container">
+        © {% now "Y" %} ServiceHub. All Rights Reserved.
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

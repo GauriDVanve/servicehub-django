@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Services | ServiceHub</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Internal CSS -->
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #0f172a;
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .navbar-brand span {
+            color: #ffc107;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.70);
+            font-size: 13px;
+            margin-left: 12px;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #ffc107;
+        }
+
+        .login-btn {
+            padding: 8px 15px !important;
+            background: #ffc107;
+            color: #111827 !important;
+            border-radius: 7px;
+            font-weight: 700;
+        }
+
+        /* Hero */
+        .service-hero {
+            padding: 65px 0 90px;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+        }
+
+        .service-hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .service-hero h1 span {
+            color: #ffc107;
+        }
+
+        .service-hero p {
+            max-width: 620px;
+            margin: auto;
+            color: rgba(255,255,255,0.65);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Search */
+        .search-wrapper {
+            margin-top: -40px;
+        }
+
+        .search-card {
+            padding: 22px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            box-shadow: 0 12px 30px rgba(15,23,42,0.08);
+        }
+
+        .search-input-group {
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            z-index: 5;
+        }
+
+        .search-input {
+            height: 48px;
+            padding-left: 42px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .category-select {
+            height: 48px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .search-input:focus,
+        .category-select:focus {
+            border-color: #ffc107;
+            box-shadow: 0 0 0 3px rgba(255,193,7,0.12);
+        }
+
+        .search-btn {
+            width: 100%;
+            height: 48px;
+            border: none;
+            border-radius: 8px;
+            background: #ffc107;
+            color: #111827;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .search-btn:hover {
+            background: #e5ad00;
+        }
+
+        .clear-btn {
+            display: inline-block;
+            margin-top: 12px;
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .clear-btn:hover {
+            color: #dc2626;
+        }
+
+        /* Services */
+        .services-section {
+            padding: 50px 0 65px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .section-header p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .result-count {
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Service Card */
+        .service-card {
+            height: 100%;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(15,23,42,0.08);
+        }
+
+        .service-card-top {
+            padding: 25px;
+            background: #0f172a;
+            color: white;
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: #ffc107;
+            color: #111827;
+            border-radius: 12px;
+            font-size: 21px;
+        }
+
+        .category {
+            display: inline-block;
+            padding: 5px 9px;
+            margin-bottom: 10px;
+            background: rgba(255,193,7,0.15);
+            color: #ffc107;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .service-card-top h4 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .service-card-body {
+            padding: 22px 25px 25px;
+        }
+
+        .description {
+            min-height: 55px;
+            color: #6b7280;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .provider {
+            padding: 12px 0;
+            margin: 15px 0;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .provider-label {
+            display: block;
+            color: #9ca3af;
+            font-size: 9px;
+            text-transform: uppercase;
+        }
+
+        .provider-name {
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .service-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .price-label {
+            display: block;
+            color: #9ca3af;
+            font-size: 9px;
+        }
+
+        .price {
+            color: #0f172a;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .view-btn {
+            padding: 9px 14px;
+            background: #ffc107;
+            color: #111827;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .view-btn:hover {
+            background: #e5ad00;
+            color: #111827;
+        }
+
+        /* Empty */
+        .empty-box {
+            padding: 70px 20px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .empty-box i {
+            display: block;
+            margin-bottom: 15px;
+            color: #d1d5db;
+            font-size: 50px;
+        }
+
+        .empty-box h4 {
+            font-weight: 800;
+        }
+
+        .empty-box p {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .empty-clear-btn {
+            display: inline-block;
+            padding: 10px 16px;
+            margin-top: 8px;
+            background: #ffc107;
+            color: #111827;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        /* Footer */
+        footer {
+            padding: 25px 0;
+            background: #0f172a;
+            color: rgba(255,255,255,0.55);
+            text-align: center;
+            font-size: 11px;
+        }
+
+        @media(max-width: 768px) {
+
+            .service-hero {
+                padding: 50px 15px 75px;
+            }
+
+            .service-hero h1 {
+                font-size: 32px;
+            }
+
+            .section-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+    <div class="container">
+
+        <a href="{% url 'home' %}" class="navbar-brand">
+            Service<span>Hub</span>
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+
+                    <a href="{% url 'home' %}" class="nav-link">
+                        Home
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a href="{% url 'public_service_list' %}"
+                       class="nav-link active">
+                        Services
+                    </a>
+
+                </li>
+
+
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item">
+
+                        <a href="{% url 'dashboard' %}" class="nav-link">
+                            Dashboard
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a href="{% url 'logout' %}" class="nav-link">
+                            Logout
+                        </a>
+
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+
+                        <a href="{% url 'login' %}"
+                           class="nav-link login-btn">
+                            Login
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- Hero -->
+<section class="service-hero">
+
+    <div class="container text-center">
+
+        <h1>
+            Find the Right <span>Service</span>
+        </h1>
+
+        <p>
+            Search professional services, explore categories and
+            connect with the right service provider.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- Search & Filter -->
+<div class="search-wrapper">
+
+    <div class="container">
+
+        <div class="search-card">
+
+            <form method="GET"
+                  action="{% url 'public_service_list' %}">
+
+                <div class="row g-3">
+
+
+                    <!-- Search -->
+                    <div class="col-lg-6">
+
+                        <div class="search-input-group">
+
+                            <i class="bi bi-search search-icon"></i>
+
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control search-input"
+                                value="{{ search }}"
+                                placeholder="Search services or providers..."
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Category -->
+                    <div class="col-lg-4">
+
+                        <select name="category"
+                                class="form-select category-select">
+
+                            <option value="">
+                                All Categories
+                            </option>
+
+
+                            {% for category in categories %}
+
+                                <option
+                                    value="{{ category.id }}"
+                                    {% if selected_category == category.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+
+                                    {{ category.name }}
+
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Search Button -->
+                    <div class="col-lg-2">
+
+                        <button type="submit"
+                                class="search-btn">
+
+                            <i class="bi bi-search me-1"></i>
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                {% if search or selected_category %}
+
+                    <a href="{% url 'public_service_list' %}"
+                       class="clear-btn">
+
+                        <i class="bi bi-x-circle me-1"></i>
+
+                        Clear Search & Filters
+
+                    </a>
+
+                {% endif %}
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Services -->
+<section class="services-section">
+
+    <div class="container">
+
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>Available Services</h2>
+
+                <p>
+                    Explore services offered by ServiceHub providers.
+                </p>
+
+            </div>
+
+            <span class="result-count">
+
+                {{ services|length }}
+
+                {% if services|length == 1 %}
+                    Service Found
+                {% else %}
+                    Services Found
+                {% endif %}
+
+            </span>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            {% for service in services %}
+
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="service-card">
+
+
+                        <div class="service-card-top">
+
+
+                            <div class="service-icon">
+
+                                <i class="bi bi-briefcase"></i>
+
+                            </div>
+
+
+                            <span class="category">
+
+                                {{ service.category.name }}
+
+                            </span>
+
+
+                            <h4>
+
+                                {{ service.name }}
+
+                            </h4>
+
+
+                        </div>
+
+
+                        <div class="service-card-body">
+
+
+                            <div class="description">
+
+                                {{ service.description|truncatechars:120 }}
+
+                            </div>
+
+
+                            <div class="provider">
+
+
+                                <span class="provider-label">
+
+                                    Service Provider
+
+                                </span>
+
+
+                                <span class="provider-name">
+
+
+                                    {% if service.provider.business_name %}
+
+                                        {{ service.provider.business_name }}
+
+                                    {% else %}
+
+                                        {{ service.provider.user.username }}
+
+                                    {% endif %}
+
+
+                                </span>
+
+
+                            </div>
+
+
+                            <div class="service-bottom">
+
+
+                                <div>
+
+                                    <span class="price-label">
+
+                                        Starting From
+
+                                    </span>
+
+                                    <span class="price">
+
+                                        ₹{{ service.price }}
+
+                                    </span>
+
+                                </div>
+
+
+                                <a href="{% url 'public_service_detail' service.id %}"
+                                   class="view-btn">
+
+                                    View Details
+
+                                </a>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            {% empty %}
+
+
+                <div class="col-12">
+
+                    <div class="empty-box">
+
+                        <i class="bi bi-search"></i>
+
+                        <h4>
+                            No Matching Services
+                        </h4>
+
+                        <p>
+                            We couldn't find any active services
+                            matching your search or category.
+                        </p>
+
+                        <a href="{% url 'public_service_list' %}"
+                           class="empty-clear-btn">
+
+                            View All Services
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Footer -->
+<footer>
+
+    <div class="container">
+
+        © {% now "Y" %} ServiceHub. All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

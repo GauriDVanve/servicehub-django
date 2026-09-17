@@ -1,0 +1,663 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Notifications | ServiceHub</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            padding: 15px 0;
+            background: #0f172a;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .navbar-brand span {
+            color: #ffc107;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.70) !important;
+            font-size: 12px;
+        }
+
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page-section {
+            min-height: calc(100vh - 130px);
+            padding: 55px 0;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .page-title {
+            margin: 0 0 5px;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .page-subtitle {
+            margin: 0;
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        /* ================= MARK ALL ================= */
+
+        .mark-all-btn {
+            padding: 10px 15px;
+            background: #0f172a;
+            color: white;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .mark-all-btn:hover {
+            background: #ffc107;
+            color: #111827;
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .notification-summary {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 13px;
+            margin-bottom: 20px;
+            background: #fff5c7;
+            color: #856404;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* ================= NOTIFICATION ================= */
+
+        .notification-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            margin-bottom: 12px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 13px;
+        }
+
+        .notification-card.unread {
+            background: #fffdf5;
+            border-left: 4px solid #ffc107;
+        }
+
+        .notification-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: #0f172a;
+            color: #ffc107;
+            border-radius: 11px;
+            font-size: 17px;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            margin: 0 0 5px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .notification-message {
+            margin: 0;
+            color: #6b7280;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .notification-time {
+            display: block;
+            margin-top: 8px;
+            color: #9ca3af;
+            font-size: 9px;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .notification-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .read-btn,
+        .delete-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .read-btn {
+            background: #ecfdf5;
+            color: #198754;
+        }
+
+        .read-btn:hover {
+            background: #198754;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #fff1f2;
+            color: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty-box {
+            padding: 65px 20px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .empty-box i {
+            color: #ffc107;
+            font-size: 45px;
+        }
+
+        .empty-box h4 {
+            margin: 15px 0 6px;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .empty-box p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        /* ================= ALERT ================= */
+
+        .custom-alert {
+            border: none;
+            border-radius: 10px;
+            font-size: 11px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            padding: 24px 0;
+            background: #0f172a;
+            color: rgba(255,255,255,0.50);
+            text-align: center;
+            font-size: 10px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 768px) {
+
+            .page-section {
+                padding: 35px 0;
+            }
+
+            .page-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .notification-card {
+                flex-wrap: wrap;
+            }
+
+            .notification-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+    <div class="container">
+
+        <a href="{% url 'home' %}"
+           class="navbar-brand">
+
+            Service<span>Hub</span>
+
+        </a>
+
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div class="collapse navbar-collapse"
+             id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto">
+
+
+                <li class="nav-item">
+
+                    <a href="{% url 'dashboard' %}"
+                       class="nav-link">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+
+                {% if user.customerprofile %}
+
+                    <li class="nav-item">
+
+                        <a href="{% url 'customer_booking_list' %}"
+                           class="nav-link">
+
+                            My Bookings
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a href="{% url 'customer_favorites' %}"
+                           class="nav-link">
+
+                            Favorites
+
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+
+                {% if user.providerprofile %}
+
+                    <li class="nav-item">
+
+                        <a href="{% url 'provider_booking_list' %}"
+                           class="nav-link">
+
+                            Bookings
+
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+
+                <li class="nav-item">
+
+                    <a href="{% url 'logout' %}"
+                       class="nav-link">
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= CONTENT ================= -->
+
+<section class="page-section">
+
+    <div class="container">
+
+
+        <!-- Messages -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert alert-success
+                            alert-dismissible
+                            fade show
+                            custom-alert">
+
+                    {{ message }}
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <!-- Header -->
+
+        <div class="page-header">
+
+            <div>
+
+                <h1 class="page-title">
+
+                    <i class="bi bi-bell me-1"></i>
+
+                    Notifications
+
+                </h1>
+
+                <p class="page-subtitle">
+                    Stay updated with your ServiceHub activity.
+                </p>
+
+            </div>
+
+
+            {% if unread_count %}
+
+                <a href="{% url 'notifications_mark_all_read' %}"
+                   class="mark-all-btn">
+
+                    <i class="bi bi-check2-all me-1"></i>
+
+                    Mark All as Read
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Unread Count -->
+
+        {% if unread_count %}
+
+            <div class="notification-summary">
+
+                <i class="bi bi-bell-fill"></i>
+
+                {{ unread_count }}
+                unread notification{{ unread_count|pluralize }}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ================= NOTIFICATION LIST ================= -->
+
+        {% if notifications %}
+
+
+            {% for notification in notifications %}
+
+
+                <div class="notification-card
+                    {% if not notification.is_read %}
+                        unread
+                    {% endif %}">
+
+
+                    <!-- Icon -->
+
+                    <div class="notification-icon">
+
+
+                        {% if notification.notification_type == "booking" %}
+
+                            <i class="bi bi-calendar-plus"></i>
+
+
+                        {% elif notification.notification_type == "confirmed" %}
+
+                            <i class="bi bi-calendar-check"></i>
+
+
+                        {% elif notification.notification_type == "cancelled" %}
+
+                            <i class="bi bi-x-circle"></i>
+
+
+                        {% elif notification.notification_type == "completed" %}
+
+                            <i class="bi bi-check2-circle"></i>
+
+
+                        {% elif notification.notification_type == "review" %}
+
+                            <i class="bi bi-star-fill"></i>
+
+
+                        {% else %}
+
+                            <i class="bi bi-bell"></i>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    <!-- Content -->
+
+                    <div class="notification-content">
+
+                        <h5 class="notification-title">
+                            {{ notification.title }}
+                        </h5>
+
+                        <p class="notification-message">
+                            {{ notification.message }}
+                        </p>
+
+
+                        {% if notification.booking %}
+
+                            <span class="notification-time">
+
+                                Service:
+                                {{ notification.booking.service.name }}
+
+                            </span>
+
+                        {% endif %}
+
+
+                        <span class="notification-time">
+
+                            <i class="bi bi-clock me-1"></i>
+
+                            {{ notification.created_at|date:"d M Y, h:i A" }}
+
+                        </span>
+
+
+                    </div>
+
+
+                    <!-- Actions -->
+
+                    <div class="notification-actions">
+
+
+                        {% if not notification.is_read %}
+
+                            <a href="{% url 'notification_read' notification.id %}"
+                               class="read-btn"
+                               title="Mark as Read">
+
+                                <i class="bi bi-check2"></i>
+
+                            </a>
+
+                        {% endif %}
+
+
+                        <a href="{% url 'notification_delete' notification.id %}"
+                           class="delete-btn"
+                           title="Delete"
+                           onclick="return confirm('Delete this notification?')">
+
+                            <i class="bi bi-trash"></i>
+
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <!-- Empty -->
+
+            <div class="empty-box">
+
+                <i class="bi bi-bell"></i>
+
+                <h4>
+                    No Notifications
+                </h4>
+
+                <p>
+                    You don't have any ServiceHub notifications yet.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container">
+
+        © {% now "Y" %} ServiceHub. All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>
+```

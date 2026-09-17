@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Requests | ServiceHub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 15px 0;
+            background: #0f172a;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .navbar-brand span {
+            color: #ffc107;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.70) !important;
+            font-size: 13px;
+        }
+
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        /* Page */
+        .page-section {
+            min-height: calc(100vh - 140px);
+            padding: 55px 0;
+        }
+
+        .page-title {
+            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .page-subtitle {
+            margin-bottom: 30px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* Booking Card */
+        .booking-card {
+            height: 100%;
+            padding: 25px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            transition: 0.2s;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        .booking-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .category {
+            display: inline-block;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            background: #fff5c7;
+            color: #856500;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .booking-card h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        /* Status */
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-completed {
+            background: #cff4fc;
+            color: #055160;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        /* Customer */
+        .customer-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            margin-bottom: 18px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+
+        .customer-avatar {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: #0f172a;
+            color: #ffc107;
+            border-radius: 50%;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .customer-name {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .customer-email {
+            display: block;
+            margin-top: 2px;
+            color: #6b7280;
+            font-size: 9px;
+        }
+
+        /* Details */
+        .info-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        .info-row i {
+            width: 18px;
+            color: #0f172a;
+        }
+
+        .message-box {
+            padding: 12px;
+            margin-top: 15px;
+            background: #f8fafc;
+            border-left: 3px solid #ffc107;
+            border-radius: 5px;
+            color: #6b7280;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .message-title {
+            display: block;
+            margin-bottom: 4px;
+            color: #111827;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* Actions */
+        .action-area {
+            display: flex;
+            gap: 8px;
+            padding-top: 18px;
+            margin-top: 18px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 9px 10px;
+            border: none;
+            border-radius: 7px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .confirm-btn {
+            background: #198754;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            background: #157347;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background: #bb2d3b;
+            color: white;
+        }
+
+        .completed-text {
+            width: 100%;
+            padding: 9px;
+            background: #f8fafc;
+            color: #6b7280;
+            border-radius: 7px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* Empty */
+        .empty-box {
+            padding: 60px 20px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .empty-box i {
+            color: #ffc107;
+            font-size: 45px;
+        }
+
+        .empty-box h4 {
+            margin-top: 15px;
+            font-weight: 800;
+        }
+
+        .empty-box p {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* Messages */
+        .custom-alert {
+            border: none;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 25px 0;
+            background: #0f172a;
+            color: rgba(255,255,255,0.50);
+            text-align: center;
+            font-size: 11px;
+        }
+
+        @media(max-width: 768px) {
+
+            .page-section {
+                padding: 35px 0;
+            }
+
+            .booking-top {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+    <div class="container">
+
+        <a href="{% url 'home' %}" class="navbar-brand">
+            Service<span>Hub</span>
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a href="{% url 'provider_dashboard' %}" class="nav-link">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'provider_service_list' %}" class="nav-link">
+                        My Services
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="nav-link">
+                        View Website
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link">
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- Main -->
+<section class="page-section">
+
+    <div class="container">
+
+
+        <!-- Messages -->
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert
+                    {% if message.tags == 'error' %}
+                        alert-danger
+                    {% else %}
+                        alert-success
+                    {% endif %}
+                    alert-dismissible fade show custom-alert">
+
+                    {{ message }}
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <h1 class="page-title">
+            Booking Requests
+        </h1>
+
+        <p class="page-subtitle">
+            View and manage booking requests received for your services.
+        </p>
+
+
+        {% if bookings %}
+
+            <div class="row g-4">
+
+
+                {% for booking in bookings %}
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="booking-card">
+
+
+                            <div class="booking-top">
+
+                                <div>
+
+                                    <span class="category">
+                                        {{ booking.service.category.name }}
+                                    </span>
+
+                                    <h4>
+                                        {{ booking.service.name }}
+                                    </h4>
+
+                                </div>
+
+
+                                <!-- Status -->
+                                {% if booking.status == "pending" %}
+
+                                    <span class="status status-pending">
+                                        Pending
+                                    </span>
+
+                                {% elif booking.status == "confirmed" %}
+
+                                    <span class="status status-confirmed">
+                                        Confirmed
+                                    </span>
+
+                                {% elif booking.status == "completed" %}
+
+                                    <span class="status status-completed">
+                                        Completed
+                                    </span>
+
+                                {% elif booking.status == "cancelled" %}
+
+                                    <span class="status status-cancelled">
+                                        Cancelled
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- Customer -->
+                            <div class="customer-box">
+
+                                <div class="customer-avatar">
+                                    {{ booking.customer.user.username|first|upper }}
+                                </div>
+
+                                <div>
+
+                                    <span class="customer-name">
+                                        {{ booking.customer.user.username }}
+                                    </span>
+
+                                    <span class="customer-email">
+                                        {{ booking.customer.user.email }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Date -->
+                            <div class="info-row">
+
+                                <i class="bi bi-calendar3"></i>
+
+                                <span>
+                                    {{ booking.booking_date|date:"d M Y" }}
+                                </span>
+
+                            </div>
+
+
+                            <!-- Time -->
+                            <div class="info-row">
+
+                                <i class="bi bi-clock"></i>
+
+                                <span>
+                                    {{ booking.booking_time|time:"h:i A" }}
+                                </span>
+
+                            </div>
+
+
+                            <!-- Price -->
+                            <div class="info-row">
+
+                                <i class="bi bi-currency-rupee"></i>
+
+                                <span>
+                                    ₹{{ booking.service.price }}
+                                </span>
+
+                            </div>
+
+
+                            <!-- Phone -->
+                            {% if booking.customer.phone %}
+
+                                <div class="info-row">
+
+                                    <i class="bi bi-telephone"></i>
+
+                                    <span>
+                                        {{ booking.customer.phone }}
+                                    </span>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- Address -->
+                            {% if booking.customer.address %}
+
+                                <div class="info-row">
+
+                                    <i class="bi bi-geo-alt"></i>
+
+                                    <span>
+                                        {{ booking.customer.address }}
+                                    </span>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- Message -->
+                            {% if booking.message %}
+
+                                <div class="message-box">
+
+                                    <span class="message-title">
+                                        Customer Message
+                                    </span>
+
+                                    {{ booking.message }}
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- Actions -->
+                            <div class="action-area">
+
+
+                                {% if booking.status == "pending" %}
+
+                                    <a href="{% url 'provider_booking_confirm' booking.id %}"
+                                       class="action-btn confirm-btn">
+
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        Confirm
+
+                                    </a>
+
+
+                                    <a href="{% url 'provider_booking_cancel' booking.id %}"
+                                       class="action-btn cancel-btn"
+                                       onclick="return confirm('Are you sure you want to cancel this booking?')">
+
+                                        <i class="bi bi-x-circle me-1"></i>
+                                        Cancel
+
+                                    </a>
+
+
+                                {% elif booking.status == "confirmed" %}
+
+                                    <a href="{% url 'provider_booking_complete' booking.id %}"
+                                       class="action-btn confirm-btn"
+                                       onclick="return confirm('Mark this service as completed?')">
+
+                                        <i class="bi bi-check2-all me-1"></i>
+                                        Mark Completed
+
+                                    </a>
+
+
+                                    <a href="{% url 'provider_booking_cancel' booking.id %}"
+                                       class="action-btn cancel-btn"
+                                       onclick="return confirm('Are you sure you want to cancel this booking?')">
+
+                                        Cancel
+
+                                    </a>
+
+
+                                {% elif booking.status == "completed" %}
+
+                                    <span class="completed-text">
+                                        <i class="bi bi-check2-all me-1"></i>
+                                        Service Completed
+                                    </span>
+
+
+                                {% elif booking.status == "cancelled" %}
+
+                                    <span class="completed-text">
+                                        <i class="bi bi-x-circle me-1"></i>
+                                        Booking Cancelled
+                                    </span>
+
+                                {% endif %}
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- Empty State -->
+            <div class="empty-box">
+
+                <i class="bi bi-calendar2-x"></i>
+
+                <h4>
+                    No Booking Requests
+                </h4>
+
+                <p>
+                    You haven't received any booking requests yet.
+                    New customer requests will appear here.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="container">
+        © {% now "Y" %} ServiceHub. All Rights Reserved.
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Contact Enquiries | ServiceHub Admin
+    </title>
+
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- =====================================================
+         INTERNAL CSS
+         ===================================================== -->
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f6f8;
+
+            color: #1f2937;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+           ===================================================== */
+
+        .sidebar {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 250px;
+            height: 100vh;
+
+            padding: 25px 18px;
+
+            background: #0f172a;
+
+            overflow-y: auto;
+
+            z-index: 1000;
+        }
+
+
+        .brand {
+            padding:
+                0 12px
+                25px;
+
+            color: #ffffff;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            font-size: 25px;
+
+            font-weight: 800;
+        }
+
+
+        .brand span {
+            color: #ffc107;
+        }
+
+
+        .admin-label {
+            margin:
+                25px 12px
+                10px;
+
+            color:
+                rgba(255,255,255,0.35);
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+
+        .sidebar-link {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 6px;
+
+            padding: 12px 14px;
+
+            color:
+                rgba(255,255,255,0.65);
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            transition: 0.3s;
+        }
+
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: #ffc107;
+
+            color: #111827;
+        }
+
+
+        .sidebar-link i {
+            font-size: 16px;
+        }
+
+
+        .sidebar-badge {
+            margin-left: auto;
+
+            min-width: 21px;
+
+            padding: 3px 6px;
+
+            background: #dc3545;
+
+            color: #ffffff;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+           ===================================================== */
+
+        .main-content {
+            margin-left: 250px;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+           ===================================================== */
+
+        .topbar {
+            min-height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 15px 30px;
+
+            background: #ffffff;
+
+            border-bottom:
+                1px solid #e5e7eb;
+        }
+
+
+        .topbar h5 {
+            margin: 0;
+
+            font-weight: 800;
+        }
+
+
+        .admin-user {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #ffc107;
+
+            color: #111827;
+
+            border-radius: 50%;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+        }
+
+
+        .admin-user strong {
+            display: block;
+
+            font-size: 13px;
+        }
+
+
+        .admin-user span {
+            display: block;
+
+            color: #6b7280;
+
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           PAGE CONTENT
+           ===================================================== */
+
+        .page-content {
+            padding: 35px 30px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+           ===================================================== */
+
+        .page-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .page-header h2 {
+            margin-bottom: 6px;
+
+            color: #111827;
+
+            font-size: 27px;
+
+            font-weight: 800;
+        }
+
+
+        .page-header p {
+            margin: 0;
+
+            color: #6b7280;
+
+            font-size: 13px;
+        }
+
+
+        .back-btn {
+            padding: 9px 16px;
+
+            background: #0f172a;
+
+            color: #ffffff;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .back-btn:hover {
+            background: #1e293b;
+
+            color: #ffc107;
+        }
+
+
+        /* =====================================================
+           STATISTICS
+           ===================================================== */
+
+        .stat-card {
+            height: 100%;
+
+            padding: 22px;
+
+            background: #ffffff;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 14px;
+        }
+
+
+        .stat-top {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #fff5c7;
+
+            color: #a97d00;
+
+            border-radius: 11px;
+
+            font-size: 19px;
+        }
+
+
+        .stat-card h3 {
+            margin:
+                15px 0
+                4px;
+
+            color: #111827;
+
+            font-size: 26px;
+
+            font-weight: 800;
+        }
+
+
+        .stat-card p {
+            margin: 0;
+
+            color: #6b7280;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           TABLE CARD
+           ===================================================== */
+
+        .table-card {
+            margin-top: 28px;
+
+            background: #ffffff;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+        }
+
+
+        .table-card-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 20px 22px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+        }
+
+
+        .table-card-header h5 {
+            margin: 0;
+
+            font-size: 16px;
+
+            font-weight: 800;
+        }
+
+
+        .table-card-header span {
+            color: #6b7280;
+
+            font-size: 11px;
+        }
+
+
+        .table {
+            margin-bottom: 0;
+        }
+
+
+        .table thead th {
+            padding: 14px 18px;
+
+            background: #f8fafc;
+
+            color: #6b7280;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
+        }
+
+
+        .table tbody td {
+            padding: 17px 18px;
+
+            color: #374151;
+
+            border-color: #eef0f3;
+
+            font-size: 12px;
+
+            vertical-align: middle;
+        }
+
+
+        .customer-name {
+            color: #111827;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .customer-email {
+            margin-top: 3px;
+
+            color: #9ca3af;
+
+            font-size: 10px;
+        }
+
+
+        .subject-text {
+            max-width: 220px;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           STATUS BADGES
+           ===================================================== */
+
+        .status {
+            display: inline-block;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: capitalize;
+        }
+
+
+        .status-pending {
+            background: #fff3cd;
+
+            color: #856404;
+        }
+
+
+        .status-resolved {
+            background: #d1e7dd;
+
+            color: #0f5132;
+        }
+
+
+        /* =====================================================
+           ACTION BUTTON
+           ===================================================== */
+
+        .view-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 7px 12px;
+
+            background: #0f172a;
+
+            color: #ffffff;
+
+            border-radius: 7px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        .view-btn:hover {
+            background: #ffc107;
+
+            color: #111827;
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+           ===================================================== */
+
+        .empty-state {
+            padding: 65px 20px;
+
+            text-align: center;
+        }
+
+
+        .empty-icon {
+            width: 70px;
+            height: 70px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin:
+                0 auto
+                18px;
+
+            background: #fff5c7;
+
+            color: #a97d00;
+
+            border-radius: 50%;
+
+            font-size: 28px;
+        }
+
+
+        .empty-state h5 {
+            font-weight: 800;
+        }
+
+
+        .empty-state p {
+            margin-bottom: 0;
+
+            color: #6b7280;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           MESSAGES
+           ===================================================== */
+
+        .custom-alert {
+            border: none;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        .mobile-menu {
+            display: none;
+
+            width: 40px;
+            height: 40px;
+
+            background: #0f172a;
+
+            color: #ffffff;
+
+            border: none;
+
+            border-radius: 8px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media(max-width: 991px) {
+
+            .sidebar {
+                left: -250px;
+
+                transition: 0.3s;
+            }
+
+
+            .sidebar.show {
+                left: 0;
+            }
+
+
+            .main-content {
+                margin-left: 0;
+            }
+
+
+            .mobile-menu {
+                display: inline-block;
+            }
+
+        }
+
+
+        @media(max-width: 768px) {
+
+            .page-content {
+                padding: 25px 15px;
+            }
+
+
+            .topbar {
+                padding: 15px;
+            }
+
+
+            .table-card {
+                overflow-x: auto;
+            }
+
+
+            .table {
+                min-width: 850px;
+            }
+
+        }
+
+
+        @media(max-width: 576px) {
+
+            .admin-user div:last-child {
+                display: none;
+            }
+
+
+            .page-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR
+     ========================================================= -->
+
+<div
+    class="sidebar"
+    id="sidebar"
+>
+
+    <div class="brand">
+
+        Service<span>Hub</span>
+
+    </div>
+
+
+    <div class="admin-label">
+        ADMIN PANEL
+    </div>
+
+
+    <a
+        href="{% url 'admin_dashboard' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-grid"></i>
+
+        Dashboard
+
+    </a>
+
+
+    <a
+        href="{% url 'category_list' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-tags"></i>
+
+        Categories
+
+    </a>
+
+
+    <a
+        href="{% url 'service_list' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-briefcase"></i>
+
+        Services
+
+    </a>
+
+
+    <a
+        href="{% url 'admin_user_list' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-people"></i>
+
+        Users
+
+    </a>
+
+
+    <!-- Booking admin page comes later -->
+
+    <a
+        href="#"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-calendar-check"></i>
+
+        Bookings
+
+    </a>
+
+
+    <!-- Review admin page comes later -->
+
+    <a
+        href="#"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-star"></i>
+
+        Reviews
+
+    </a>
+
+
+    <!-- Active Page -->
+
+    <a
+        href="{% url 'admin_enquiry_list' %}"
+        class="sidebar-link active"
+    >
+
+        <i class="bi bi-envelope"></i>
+
+        Enquiries
+
+
+        {% if pending_count > 0 %}
+
+            <span class="sidebar-badge">
+
+                {{ pending_count }}
+
+            </span>
+
+        {% endif %}
+
+    </a>
+
+
+    <div class="admin-label">
+        ACCOUNT
+    </div>
+
+
+    <a
+        href="{% url 'home' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-globe"></i>
+
+        View Website
+
+    </a>
+
+
+    <a
+        href="{% url 'logout' %}"
+        class="sidebar-link"
+    >
+
+        <i class="bi bi-box-arrow-right"></i>
+
+        Logout
+
+    </a>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+     ========================================================= -->
+
+<div class="main-content">
+
+
+    <!-- =====================================================
+         TOPBAR
+         ===================================================== -->
+
+    <div class="topbar">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <button
+                class="mobile-menu"
+                onclick="toggleSidebar()"
+            >
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+
+            <h5>
+                Contact Enquiries
+            </h5>
+
+        </div>
+
+
+        <div class="admin-user">
+
+            <div class="admin-avatar">
+
+                {{ user.username|first }}
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    {{ user.username }}
+                </strong>
+
+                <span>
+                    Administrator
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PAGE CONTENT
+         ===================================================== -->
+
+    <div class="page-content">
+
+
+        <!-- Django Messages -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div
+                    class="
+                        alert
+
+                        {% if message.tags == 'error' %}
+                            alert-danger
+                        {% else %}
+                            alert-{{ message.tags|default:'success' }}
+                        {% endif %}
+
+                        custom-alert
+                    "
+                >
+
+                    <i class="bi bi-info-circle-fill me-2"></i>
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <!-- =================================================
+             PAGE HEADER
+             ================================================= -->
+
+        <div class="page-header">
+
+            <div>
+
+                <h2>
+                    Contact Enquiries
+                </h2>
+
+                <p>
+
+                    View and manage support enquiries
+                    submitted from the ServiceHub website.
+
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'admin_dashboard' %}"
+                class="back-btn"
+            >
+
+                <i class="bi bi-arrow-left me-1"></i>
+
+                Dashboard
+
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             STATISTICS
+             ================================================= -->
+
+        <div class="row g-4">
+
+
+            <!-- Total -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-envelope"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        {{ enquiries.count }}
+                    </h3>
+
+                    <p>
+                        Total Enquiries
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Pending -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-hourglass-split"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        {{ pending_count|default:"0" }}
+                    </h3>
+
+                    <p>
+                        Pending Enquiries
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Resolved -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-check-circle"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        {{ resolved_count|default:"0" }}
+                    </h3>
+
+                    <p>
+                        Resolved Enquiries
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ENQUIRY TABLE
+             ================================================= -->
+
+        <div class="table-card">
+
+
+            <div class="table-card-header">
+
+                <h5>
+                    All Enquiries
+                </h5>
+
+                <span>
+                    Latest enquiries first
+                </span>
+
+            </div>
+
+
+            {% if enquiries %}
+
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    #
+                                </th>
+
+                                <th>
+                                    Customer
+                                </th>
+
+                                <th>
+                                    Phone
+                                </th>
+
+                                <th>
+                                    Subject
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            {% for enquiry in enquiries %}
+
+                                <tr>
+
+
+                                    <!-- ID -->
+
+                                    <td>
+
+                                        #{{ enquiry.id }}
+
+                                    </td>
+
+
+                                    <!-- Customer -->
+
+                                    <td>
+
+                                        <div class="customer-name">
+
+                                            {{ enquiry.name }}
+
+                                        </div>
+
+
+                                        <div class="customer-email">
+
+                                            {{ enquiry.email }}
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- Phone -->
+
+                                    <td>
+
+                                        {% if enquiry.phone %}
+
+                                            {{ enquiry.phone }}
+
+                                        {% else %}
+
+                                            <span class="text-muted">
+                                                —
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- Subject -->
+
+                                    <td>
+
+                                        <div
+                                            class="subject-text"
+                                            title="{{ enquiry.subject }}"
+                                        >
+
+                                            {{ enquiry.subject }}
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- Date -->
+
+                                    <td>
+
+                                        {{ enquiry.created_at|date:"d M Y" }}
+
+                                        <div class="customer-email">
+
+                                            {{ enquiry.created_at|date:"h:i A" }}
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- Status -->
+
+                                    <td>
+
+                                        {% if enquiry.status == "pending" %}
+
+                                            <span
+                                                class="
+                                                    status
+                                                    status-pending
+                                                "
+                                            >
+
+                                                Pending
+
+                                            </span>
+
+                                        {% else %}
+
+                                            <span
+                                                class="
+                                                    status
+                                                    status-resolved
+                                                "
+                                            >
+
+                                                Resolved
+
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- Action -->
+
+                                    <td>
+
+                                        <a
+                                            href="{% url 'admin_enquiry_detail' enquiry.id %}"
+                                            class="view-btn"
+                                        >
+
+                                            <i class="bi bi-eye"></i>
+
+                                            View
+
+                                        </a>
+
+                                    </td>
+
+
+                                </tr>
+
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- No Enquiries -->
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+
+                        <i class="bi bi-inbox"></i>
+
+                    </div>
+
+
+                    <h5>
+                        No Enquiries Yet
+                    </h5>
+
+
+                    <p>
+
+                        Contact enquiries submitted from
+                        the website will appear here.
+
+                    </p>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+     ========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<!-- =========================================================
+     INTERNAL JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+    // Mobile sidebar
+    function toggleSidebar() {
+
+        document
+            .getElementById("sidebar")
+            .classList
+            .toggle("show");
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
